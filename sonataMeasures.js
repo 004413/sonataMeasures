@@ -106,3 +106,71 @@ var FIFTEEN_TWO = allConcat([bml(1,8),bml(1,8),bml(9,22),bml(9,22),bml(23,30),bm
 var FIFTEEN_THREE = allConcat([bml(1,32),bml(33,70),bml(33,70),bml(71,78),bml(71,78),bml(79,94),bml(1,32),bml(33,70),bml(33,70)]);
 var FIFTEEN_FOUR = allConcat([bml(1,210)]);
 var FIFTEEN_ALL = [FIFTEEN_ONE,FIFTEEN_TWO,FIFTEEN_THREE,FIFTEEN_FOUR];
+
+var SIXTEEN_ONE = allConcat([bml(1,2),bml(3,113),bml(3,113),bml(114,325)]);
+var SIXTEEN_TWO = allConcat([bml(1,119)]);
+var SIXTEEN_THREE = allConcat([bml(1,275)]);
+var SIXTEEN_ALL = [SIXTEEN_ONE,SIXTEEN_TWO,SIXTEEN_THREE];
+
+var SEVENTEEN_ONE = allConcat([bml(1,92),bml(1,92),bml(93,228)]);
+var SEVENTEEN_TWO = allConcat([bml(1,103)]);
+var SEVENTEEN_THREE = allConcat([bml(1,94),bml(1,94),bml(95,399)]);
+var SEVENTEEN_ALL = [SEVENTEEN_ONE,SEVENTEEN_TWO,SEVENTEEN_THREE];
+
+var EIGHTEEN_ONE = allConcat([bml(1,88),bml(1,88),bml(89,253)]);
+var EIGHTEEN_TWO = allConcat([bml(1,2),bml(3,63),bml(3,63),bml(64,171)]);
+var EIGHTEEN_THREE = allConcat([bml(1,1),bml(2,9),bml(2,8),bml(9,16),bml(9,16),bml(17,24),bml(17,24),bml(25,38),bml(25,38),bml(39,39),bml(40,47),bml(40,46),bml(47,54),bml(47,54),bml(55,62)]);
+var EIGHTEEN_FOUR = allConcat([bml(1,79),bml(1,79),bml(80,333)]);
+var EIGHTEEN_ALL = [EIGHTEEN_ONE,EIGHTEEN_TWO,EIGHTEEN_THREE,EIGHTEEN_FOUR];
+
+var NINETEEN_ONE = allConcat([bml(1,33),bml(1,33),bml(34,110)]);
+var NINETEEN_TWO = allConcat([bml(1,164)]);
+var NINETEEN_ALL = [NINETEEN_ONE,NINETEEN_TWO];
+
+var TWENTY_ONE = allConcat([bml(1,52),bml(1,52),bml(53,122)]);
+var TWENTY_TWO = allConcat([bml(1,120)]);
+var TWENTY_ALL = [TWENTY_ONE,TWENTY_TWO];
+
+var TWENTYONE_ONE = allConcat([bml(1,2),bml(3,87),bml(3,85),bml(86,302)]);
+var TWENTYONE_TWO = allConcat([bml(1,28)]);
+var TWENTYONE_THREE = allConcat([bml(1,543)]);
+var TWENTYONE_ALL = [TWENTYONE_ONE,TWENTYONE_TWO,TWENTYONE_THREE];
+
+var TWENTYTWO_ONE = allConcat([bml(1,154)]);
+var TWENTYTWO_TWO = allConcat([bml(1,20),bml(1,19),bml(20,22),bml(23,163),bml(23,161),bml(162,188)]);
+var TWENTYTWO_ALL = [TWENTYTWO_ONE,TWENTYTWO_TWO];
+
+var TWENTYTHREE_ONE = allConcat([bml(1,262)]);
+var TWENTYTHREE_TWO = allConcat([bml(1,8),bml(1,8),bml(9,16),bml(9,16),bml(17,17),bml(18,25),bml(18,24),bml(25,32),bml(25,32),bml(33,40),bml(33,40),bml(41,47),bml(41,46),bml(47,97)]);
+var TWENTYTHREE_THREE = allConcat([bml(1,117),bml(118,307),bml(118,307),bml(308,315),bml(308,315),bml(316,325),bml(316,324),bml(325,361)]);
+var TWENTYTHREE_ALL = [TWENTYTHREE_ONE,TWENTYTHREE_TWO,TWENTYTHREE_THREE];
+
+var TWENTYFOUR_ONE = allConcat([bml(1,5),bml(6,39),bml(6,38),bml(39,105),bml(39,105)]);
+var TWENTYFOUR_TWO = allConcat([bml(1,183)]);
+var TWENTYFOUR_ALL = [TWENTYFOUR_ONE,TWENTYFOUR_TWO];
+
+var TWENTYFIVE_ONE = allConcat([bml(1,1),bml(2,50),bml(2,51),bml(52,173),bml(52,169),bml(170,201)]);
+var TWENTYFIVE_TWO = allConcat([bml(1,34)]);
+var TWENTYFIVE_THREE = allConcat([bml(1,8),bml(1,8),bml(9,16),bml(9,15),bml(16,117)]);
+var TWENTYFIVE_ALL = [TWENTYFIVE_ONE,TWENTYFIVE_TWO,TWENTYFIVE_THREE];
+
+var TWENTYSIX_ONE = allConcat([bml(1,16),bml(17,68),bml(17,66),bml(67,255)]);
+var TWENTYSIX_TWO = allConcat([bml(1,42)]);
+var TWENTYSIX_THREE = allConcat([bml(1,10),bml(11,81),bml(11,81),bml(82,196)]);
+var TWENTYSIX_ALL = [TWENTYSIX_ONE,TWENTYSIX_TWO,TWENTYSIX_THREE];
+
+var TWENTYSEVEN_ONE = allConcat([bml(1,245)]);
+var TWENTYSEVEN_TWO = allConcat([bml(1,290)]);
+var TWENTYSEVEN_ALL = [TWENTYSEVEN_ONE,TWENTYSEVEN_TWO];
+
+var TWENTYEIGHT_ONE = allConcat([bml(1,102]);
+var TWENTYEIGHT_TWO = allConcat([bml(1,8),bml(1,8),bml(9,11),bml(12,54),bml(12,54),bml(55,64),bml(55,64),bml(65,94),bml(1,54)]);
+var TWENTYEIGHT_THREE = allConcat([bml(1,32)]);
+var TWENTYEIGHT_FOUR = allConcat([bml(1,81),bml(1,80),bml(81,329)]);
+var TWENTYEIGHT_ALL = [TWENTYEIGHT_ONE,TWENTYEIGHT_TWO,TWENTYEIGHT_THREE,TWENTYEIGHT_FOUR];
+
+var TWENTYNINE_ONE = allConcat([bml(1,125),bml(1,119),bml(120,405)]);
+var TWENTYNINE_TWO = allConcat([bml(1,175)]);
+var TWENTYNINE_THREE = allConcat([bml(1,187)]);
+var TWENTYNINE_FOUR = allConcat([bml(1,400)]);
+var TWENTYNINE_ALL = [TWENTYNINE_ONE,TWENTYNINE_TWO,TWENTYNINE_THREE,TWENTYNINE_FOUR];

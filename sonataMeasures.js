@@ -1,17 +1,18 @@
-// increase x when detected that next measure is not one more than previous
-// DO TESTING
 var CANVAS_HORZ_SIZE = 2000;
-var CANVAS_VERT_SIZE = 1200;
-var LEFT_MARGIN = 12;
-var TOP_MARGIN = 12;
+var CANVAS_VERT_SIZE = 1500;
+var LEFT_MARGIN = 30;
+var TOP_MARGIN = 24;
 var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
-var testRect = canvas.rect(0,0,1500,1000).attr({'fill':'#00FF00'});
 
-var PIX_PER_MEASURE = 2;
+var PIX_PER_MEASURE = 3;
 var LINE_WIDTH = 3;
-var COLUMN_DISTANCE = 4;
+var INTER_LINE_DISTANCE = 4;
+var MOVEMENT_FONT_SIZE = 8;
+var SONATA_FONT_SIZE = 12;
+var MOVEMENT_EXTRA_SPACING = 3;
+var SONATA_EXTRA_SPACING = 6;
 
-var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Other':'#808080'};
+var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#808080'};
 
 /* produces string to represent a line from (x1,y1) to (x2,y2) */
 function parseLine(x1,y1,x2,y2){
@@ -53,8 +54,8 @@ function allConcat(listOfLists){
  * lineColor is color to color the marking, based on the type of movement
  */
 function produceMarkingForMeasure(measureNumber,movementOffset,vertOffset,sonataOffset,lineColor){
-  var centerPosition = (movementOffset+measureNumber)*PIX_PER_MEASURE;
-  var measureLine = canvas.path(parseLine(centerPosition-1,sonataOffset+movementOffset,centerPosition,sonataOffset+movementOffset)).attr({'stroke':lineColor});
+  var centerPosition = measureNumber*PIX_PER_MEASURE;
+  var measureLine = canvas.path(parseLine(LEFT_MARGIN+centerPosition-PIX_PER_MEASURE,sonataOffset+movementOffset+vertOffset,LEFT_MARGIN+centerPosition,sonataOffset+movementOffset+vertOffset)).attr({'stroke':lineColor}).attr({'stroke-width':LINE_WIDTH});
 }
 
 /* Remember LEFT_MARGIN for setting original movementOffset. */
@@ -221,16 +222,33 @@ var THIRTYTWO_ALL = [[THIRTYTWO_ONE,'Sonata'],[THIRTYTWO_TWO,'Variations']];
 
 sonataData = [ONE_ALL,TWO_ALL,THREE_ALL,FOUR_ALL,FIVE_ALL,SIX_ALL,SEVEN_ALL,EIGHT_ALL,NINE_ALL,TEN_ALL,ELEVEN_ALL,TWELVE_ALL,THIRTEEN_ALL,FOURTEEN_ALL,FIFTEEN_ALL,SIXTEEN_ALL,SEVENTEEN_ALL,EIGHTEEN_ALL,TWENTYONE_ALL,TWENTYTWO_ALL,TWENTYTHREE_ALL,TWENTYFOUR_ALL,TWENTYFIVE_ALL,TWENTYSIX_ALL,TWENTYSEVEN_ALL,TWENTYEIGHT_ALL,TWENTYNINE_ALL,THIRTY_ALL,THIRTYONE_ALL,THIRTYTWO_ALL];
 
-/*
- * movementList is the list of measures in order of performance
- */
-function displaySonataMovement(movementList,verticalOffset,horizontalOffset){
-  
-}
-
-for(var n=0;n<sonataData.length;n++){
-  var verticalOffset = TOP_MARGIN;
-  var horizontalOffset = LEFT_MARGIN;
-  var movementVerticalOffset = 0;
-  var movementHorizontalOffset = 0;
+var sonataOffset = TOP_MARGIN;
+var previousSonataOffset = TOP_MARGIN;
+for(var a=0;a<sonataData.length;a++){
+  var movementOffset = 0;
+  var sonataNewLines = 0;
+  var previousMovementOffset = 0;
+  for(var b=0;b<sonataData[a].length;b++){
+    var vertOffset = 0;
+    var newLines = 0;
+    for(var m=0;m<sonataData[a][b][0].length;m++){
+      if(m>0 && sonataData[a][b][0][m]!=sonataData[a][b][0][m-1]+1){
+        vertOffset += INTER_LINE_DISTANCE;
+        newLines += 1;
+        sonataNewLines += 1
+      }
+      var measure = produceMarkingForMeasure(sonataData[a][b][0][m],movementOffset,vertOffset,sonataOffset,COLORS[sonataData[a][b][1]]);
+    }
+    previousMovementOffset = movementOffset;
+    movementOffset += INTER_LINE_DISTANCE*(newLines+1) + MOVEMENT_EXTRA_SPACING;
+    var movementNumber = canvas.text(2*LEFT_MARGIN/3,sonataOffset+(movementOffset+previousMovementOffset)/2-MOVEMENT_FONT_SIZE/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'size':MOVEMENT_FONT_SIZE+'px'});
+  }
+  previousSonataOffset = sonataOffset + SONATA_EXTRA_SPACING;
+  sonataOffset += movementOffset + SONATA_EXTRA_SPACING;
+  var number = 0;
+  if(a>17){
+    number += 2;
+  }
+  number += a+1;
+  var sonataNumber = canvas.text(LEFT_MARGIN/3,(sonataOffset+previousSonataOffset)/2-SONATA_FONT_SIZE/2,number).attr({'size':SONATA_FONT_SIZE+'px'});
 }

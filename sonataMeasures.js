@@ -174,3 +174,17 @@ var TWENTYNINE_TWO = allConcat([bml(1,175)]);
 var TWENTYNINE_THREE = allConcat([bml(1,187)]);
 var TWENTYNINE_FOUR = allConcat([bml(1,400)]);
 var TWENTYNINE_ALL = [TWENTYNINE_ONE,TWENTYNINE_TWO,TWENTYNINE_THREE,TWENTYNINE_FOUR];
+
+var THIRTY_ONE = allConcat([bml(1,99)]);
+var THIRTY_TWO = allConcat([bml(1,177)]);
+var THIRTY_THREE = allConcat([bml(1,8),bml(1,8),bml(9,16),bml(9,16),bml(17,24),bml(17,24),bml(25,32),bml(25,32),bml(33,48),bml(49,64),bml(65,72),bml(65,72),bml(73,80),bml(73,80),bml(81,120),bml(121,171)]);
+var THIRTY_ALL = [THIRTY_ONE,THIRTY_TWO,THIRTY_THREE];
+
+var THIRTYONE_ONE = allConcat([bml(1,116)]);
+var THIRTYONE_TWO = allConcat([bml(1,8),bml(1,8),bml(9,40),bml(9,39),bml(40,111),bml(112,144),bml(112,143),bml(144,159)]);
+var THIRTYONE_THREE = allConcat([bml(1,213)]);
+var THIRTYONE_ALL = [THIRTYONE_ONE,THIRTYONE_TWO,THIRTYONE_THREE];
+
+var THIRTYTWO_ONE = allConcat([bml(1,18),bml(19,69),bml(19,68),bml(69,158)]);
+var THIRTYTWO_TWO = allConcat([bml(1,8),bml(1,8),bml(9,16),bml(9,16),bml(17,24),bml(17,24),bml(25,32),bml(25,32),bml(33,40),bml(33,40),bml(41,48),bml(41,48),bml(49,56),bml(49,56),bml(57,64),bml(57,64),bml(65,177)]);
+var THIRTYTWO_ALL = [THIRTYTWO_ONE,THIRTYTWO_TWO,THIRTYTWO_THREE];

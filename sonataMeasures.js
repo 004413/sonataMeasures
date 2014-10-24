@@ -2,10 +2,11 @@
 // DO TESTING
 var CANVAS_HORZ_SIZE = 1500;
 var CANVAS_VERT_SIZE = 900;
+var LEFT_MARGIN = 12;
 var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
 var testRect = canvas.rect(0,0,1500,1000).attr({'fill':'#00FF00'});
 
-var PIX_PER_MEASURE = 3;
+var PIX_PER_MEASURE = 2;
 var LINE_WIDTH = 3;
 var COLUMN_DISTANCE = 4;
 
@@ -44,11 +45,16 @@ function allConcat(listOfLists){
  * creates a mark on the chart on a per-measure basis
  * measureNumber is the measure number
  * movementOffset is the vertical offset to reach the movement, in measures
- * horizOffset is the horizontal offset due to displaying of repeats
+ * horizOffset is the horizontal offset due to displaying of repeats, in pixels
+ * sonataOffset is amount of offset to refer to current sonata, in pixels
+ * lineColor is color to color the marking, based on the type of movement
  */
-function produceMarkForMeasure(measureNumber,movementOffset,horizOffset){
-  
+function produceMarkingForMeasure(measureNumber,movementOffset,horizOffset,sonataOffset,lineColor){
+  var centerPosition = (movementOffset+measureNumber)*PIX_PER_MEASURE;
+  var measureLine = canvas.path(parseLine(centerPosition-1,sonataOffset,centerPosition,sonataOffset).attr({'stroke':lineColor});
 }
+
+/* Remember LEFT_MARGIN for setting original movementOffset. */
 
 var sonataData = []
 

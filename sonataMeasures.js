@@ -1,9 +1,26 @@
 // increase x when detected that next measure is not one more than previous
 // DO TESTING
+var CANVAS_HORZ_SIZE = 1500;
+var CANVAS_VERT_SIZE = 900;
+var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
+var testRect = canvas.rect(0,0,1500,1000).attr({'fill':'#00FF00'});
 
 var PIX_PER_MEASURE = 3;
 var LINE_WIDTH = 3;
 var COLUMN_DISTANCE = 4;
+
+/* produces string to represent a line from (x1,y1) to (x2,y2) */
+function parseLine(x1,y1,x2,y2){
+  var lineString = "m";
+  lineString += x1;
+  lineString += ",";
+  lineString += y1;
+  lineString += "l";
+  lineString += x2-x1;
+  lineString += ",";
+  lineString += y2-y1;
+  return lineString;
+}
 
 /* bml: build measure list */
 function bml(start,end){
@@ -20,9 +37,17 @@ function allConcat(listOfLists){
   for(var n=0; n<listOfLists.length; n++){
     outputList = outputList.concat(listOfLists[n]);
   }
-  console.log(outputList);
-  console.log(outputList.slice(40,50));
   return outputList;
+}
+
+/*
+ * creates a mark on the chart on a per-measure basis
+ * measureNumber is the measure number
+ * movementOffset is the vertical offset to reach the movement, in measures
+ * horizOffset is the horizontal offset due to displaying of repeats
+ */
+function produceMarkForMeasure(measureNumber,movementOffset,horizOffset){
+  
 }
 
 var sonataData = []
@@ -48,7 +73,7 @@ var THREE_FULL = [THREE_ONE,THREE_TWO,THREE_THREE,THREE_FOUR];
 var FOUR_ONE = allConcat([bml(1,136),bml(1,136),bml(137,362)]);
 var FOUR_TWO = allConcat([bml(1,90)]);
 var FOUR_THREE = allConcat([bml(1,24),bml(1,24),bml(25,95),bml(25,95),bml(96,111),bml(96,111),bml(112,149),bml(1,24),bml(1,24),bml(25,95),bml(25,95)]);
-var FOUR_FOUR = allConcat([bml(1,64),bml(65,72),bml(65,88),bml(72,87),bml(88,183)];
+var FOUR_FOUR = allConcat([bml(1,64),bml(65,72),bml(65,88),bml(72,87),bml(88,183)]);
 var FOUR_FULL = [FOUR_ONE,FOUR_TWO,FOUR_THREE,FOUR_FOUR];
 
 var FIVE_ONE = allConcat([bml(1,105),bml(1,105),bml(106,284)]);
@@ -69,7 +94,7 @@ var SEVEN_FULL = [SEVEN_ONE,SEVEN_TWO,SEVEN_THREE];
 
 var EIGHT_ONE = allConcat([bml(1,10),bml(11,132),bml(11,132),bml(133,310)]);
 var EIGHT_TWO = allConcat([bml(1,73)]);
-var EIGHT_THREE = allConcat([bml(1,210]);
+var EIGHT_THREE = allConcat([bml(1,210)]);
 var EIGHT_FULL = [EIGHT_ONE,EIGHT_TWO,EIGHT_THREE];
 
 var NINE_ONE = allConcat([bml(1,1),bml(2,61),bml(2,60),bml(61,162)]);
@@ -167,7 +192,7 @@ var TWENTYSEVEN_ONE = allConcat([bml(1,245)]);
 var TWENTYSEVEN_TWO = allConcat([bml(1,290)]);
 var TWENTYSEVEN_ALL = [TWENTYSEVEN_ONE,TWENTYSEVEN_TWO];
 
-var TWENTYEIGHT_ONE = allConcat([bml(1,102]);
+var TWENTYEIGHT_ONE = allConcat([bml(1,102)]);
 var TWENTYEIGHT_TWO = allConcat([bml(1,8),bml(1,8),bml(9,11),bml(12,54),bml(12,54),bml(55,64),bml(55,64),bml(65,94),bml(1,54)]);
 var TWENTYEIGHT_THREE = allConcat([bml(1,32)]);
 var TWENTYEIGHT_FOUR = allConcat([bml(1,81),bml(1,80),bml(81,329)]);
@@ -191,4 +216,6 @@ var THIRTYONE_ALL = [THIRTYONE_ONE,THIRTYONE_TWO,THIRTYONE_THREE];
 
 var THIRTYTWO_ONE = allConcat([bml(1,18),bml(19,69),bml(19,68),bml(69,158)]);
 var THIRTYTWO_TWO = allConcat([bml(1,8),bml(1,8),bml(9,16),bml(9,16),bml(17,24),bml(17,24),bml(25,32),bml(25,32),bml(33,40),bml(33,40),bml(41,48),bml(41,48),bml(49,56),bml(49,56),bml(57,64),bml(57,64),bml(65,177)]);
-var THIRTYTWO_ALL = [THIRTYTWO_ONE,THIRTYTWO_TWO,THIRTYTWO_THREE];
+var THIRTYTWO_ALL = [THIRTYTWO_ONE,THIRTYTWO_TWO];
+
+sonataData = [ONE_ALL,TWO_ALL,THREE_ALL,FOUR_ALL,FIVE_ALL,SIX_ALL,SEVEN_ALL,EIGHT_ALL,NINE_ALL,TEN_ALL,ELEVEN_ALL,TWELVE_ALL,THIRTEEN_ALL,FOURTEEN_ALL,FIFTEEN_ALL,SIXTEEN_ALL,SEVENTEEN_ALL,EIGHTEEN_ALL,NINETEEN_ALL,TWENTY_ALL,TWENTYONE_ALL,TWENTYTWO_ALL,TWENTYTHREE_ALL,TWENTYFOUR_ALL,TWENTYFIVE_ALL,TWENTYSIX_ALL,TWENTYEVEN_ALL,TWENTY_EIGHT_ALL,TWENTYNINE_ALL,THIRTY_ALL,THIRTYONE_ALL,THIRTYTWO_ALL];

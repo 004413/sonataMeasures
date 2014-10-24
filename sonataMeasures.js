@@ -1,6 +1,10 @@
 // increase x when detected that next measure is not one more than previous
 // DO TESTING
 
+var PIX_PER_MEASURE = 3;
+var LINE_WIDTH = 3;
+var COLUMN_DISTANCE = 4;
+
 /* bml: build measure list */
 function bml(start,end){
   outputList = [];

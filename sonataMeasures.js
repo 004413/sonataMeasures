@@ -7,12 +7,18 @@ var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
 var PIX_PER_MEASURE = 3;
 var LINE_WIDTH = 3;
 var INTER_LINE_DISTANCE = 4;
-var MOVEMENT_FONT_SIZE = 8;
+var MOVEMENT_FONT_SIZE = 6;
 var SONATA_FONT_SIZE = 12;
-var MOVEMENT_EXTRA_SPACING = 3;
-var SONATA_EXTRA_SPACING = 6;
+var MOVEMENT_EXTRA_SPACING = 1;
+var SONATA_EXTRA_SPACING = 9;
 
-var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#808080'};
+var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#800080'};
+var MEASURE_MARKINGS = [1,16,32,48,64,96,128,160,192,224,256,320,384,448,512];
+
+for(var n=0;n<MEASURE_MARKINGS.length;n++){
+  canvas.text(LEFT_MARGIN+PIX_PER_MEASURE*(MEASURE_MARKINGS[n]-1)+1,2*TOP_MARGIN/3,MEASURE_MARKINGS[n]);
+}
+canvas.text(LEFT_MARGIN,TOP_MARGIN/4,'Measures').attr({'text-anchor':'start'});
 
 /* produces string to represent a line from (x1,y1) to (x2,y2) */
 function parseLine(x1,y1,x2,y2){
@@ -241,14 +247,18 @@ for(var a=0;a<sonataData.length;a++){
     }
     previousMovementOffset = movementOffset;
     movementOffset += INTER_LINE_DISTANCE*(newLines+1) + MOVEMENT_EXTRA_SPACING;
-    var movementNumber = canvas.text(2*LEFT_MARGIN/3,sonataOffset+(movementOffset+previousMovementOffset)/2-MOVEMENT_FONT_SIZE/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'size':MOVEMENT_FONT_SIZE+'px'});
+    var movementNumber = canvas.text(2*LEFT_MARGIN/3,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'size':MOVEMENT_FONT_SIZE+'px'});
   }
-  previousSonataOffset = sonataOffset + SONATA_EXTRA_SPACING;
+  previousSonataOffset = sonataOffset;
   sonataOffset += movementOffset + SONATA_EXTRA_SPACING;
   var number = 0;
   if(a>17){
     number += 2;
   }
   number += a+1;
-  var sonataNumber = canvas.text(LEFT_MARGIN/3,(sonataOffset+previousSonataOffset)/2-SONATA_FONT_SIZE/2,number).attr({'size':SONATA_FONT_SIZE+'px'});
+  if(a<2){
+    console.log(previousSonataOffset);
+    console.log(sonataOffset-INTER_LINE_DISTANCE-SONATA_EXTRA_SPACING-MOVEMENT_EXTRA_SPACING);
+  }
+  var sonataNumber = canvas.text(LEFT_MARGIN/3,(sonataOffset-INTER_LINE_DISTANCE-SONATA_EXTRA_SPACING-MOVEMENT_EXTRA_SPACING+previousSonataOffset)/2,number).attr({'size':SONATA_FONT_SIZE+'px'});
 }

@@ -1,24 +1,35 @@
 var CANVAS_HORZ_SIZE = 2000;
 var CANVAS_VERT_SIZE = 1500;
-var LEFT_MARGIN = 30;
-var TOP_MARGIN = 24;
+var LEFT_MARGIN = 90;
+var TOP_MARGIN = 30;
 var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
 
 var PIX_PER_MEASURE = 3;
 var LINE_WIDTH = 3;
 var INTER_LINE_DISTANCE = 4;
-var MOVEMENT_FONT_SIZE = 6;
+var MOVEMENT_FONT_SIZE = 8;
 var SONATA_FONT_SIZE = 12;
-var MOVEMENT_EXTRA_SPACING = 1;
-var SONATA_EXTRA_SPACING = 9;
+var MOVEMENT_EXTRA_SPACING = 3;
+var SONATA_EXTRA_SPACING = 5;
 
 var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#800080'};
 var MEASURE_MARKINGS = [1,16,32,48,64,96,128,160,192,224,256,320,384,448,512];
 
 for(var n=0;n<MEASURE_MARKINGS.length;n++){
-  canvas.text(LEFT_MARGIN+PIX_PER_MEASURE*(MEASURE_MARKINGS[n]-1)+1,2*TOP_MARGIN/3,MEASURE_MARKINGS[n]);
+  canvas.text(LEFT_MARGIN+PIX_PER_MEASURE*(MEASURE_MARKINGS[n]-1)+1,3*TOP_MARGIN/5,MEASURE_MARKINGS[n]);
 }
 canvas.text(LEFT_MARGIN,TOP_MARGIN/4,'Measures').attr({'text-anchor':'start'});
+
+/* computes the maximum in a list of at least 1 number */
+function max(numbers){
+  var max = numbers[0];
+  for(var i=0;i<numbers.length;i++){
+    if(numbers[i] > max){
+      max = numbers[i];
+    }
+  }
+  return max;
+}
 
 /* produces string to represent a line from (x1,y1) to (x2,y2) */
 function parseLine(x1,y1,x2,y2){
@@ -247,7 +258,10 @@ for(var a=0;a<sonataData.length;a++){
     }
     previousMovementOffset = movementOffset;
     movementOffset += INTER_LINE_DISTANCE*(newLines+1) + MOVEMENT_EXTRA_SPACING;
-    var movementNumber = canvas.text(2*LEFT_MARGIN/3,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'size':MOVEMENT_FONT_SIZE+'px'});
+    var movementNumber = canvas.text(3*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
+    var totalMeasures = canvas.text(LEFT_MARGIN/2,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,max(sonataData[a][b][0])).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
+    var totalMeasuresWithRepeat = canvas.text(7*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,sonataData[a][b][0].length).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
+    var averageTimesPlayed = canvas.text(9*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,Math.round(sonataData[a][b][0].length/max(sonataData[a][b][0])*10)/10).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
   }
   previousSonataOffset = sonataOffset;
   sonataOffset += movementOffset + SONATA_EXTRA_SPACING;
@@ -256,9 +270,10 @@ for(var a=0;a<sonataData.length;a++){
     number += 2;
   }
   number += a+1;
-  if(a<2){
-    console.log(previousSonataOffset);
-    console.log(sonataOffset-INTER_LINE_DISTANCE-SONATA_EXTRA_SPACING-MOVEMENT_EXTRA_SPACING);
+  var gapToNextSonata = INTER_LINE_DISTANCE + SONATA_EXTRA_SPACING + MOVEMENT_EXTRA_SPACING;
+  var sonataNumber = canvas.text(LEFT_MARGIN/8,(sonataOffset-gapToNextSonata+previousSonataOffset)/2,number).attr({'font-size':SONATA_FONT_SIZE+'px'});
+  if(a%2==0){
+    var highlightRect = canvas.rect(0,previousSonataOffset-(gapToNextSonata)/2,CANVAS_HORZ_SIZE,sonataOffset-previousSonataOffset).attr({'fill':'#E0E0E0'}).attr({'stroke-width':0});
+    highlightRect.toBack();
   }
-  var sonataNumber = canvas.text(LEFT_MARGIN/3,(sonataOffset-INTER_LINE_DISTANCE-SONATA_EXTRA_SPACING-MOVEMENT_EXTRA_SPACING+previousSonataOffset)/2,number).attr({'size':SONATA_FONT_SIZE+'px'});
 }

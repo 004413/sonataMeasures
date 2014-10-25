@@ -7,18 +7,24 @@ var canvas = Raphael(0,0,CANVAS_HORZ_SIZE,CANVAS_VERT_SIZE);
 var PIX_PER_MEASURE = 3;
 var LINE_WIDTH = 3;
 var INTER_LINE_DISTANCE = 4;
-var MOVEMENT_FONT_SIZE = 8;
+var MOVEMENT_FONT_SIZE = 9;
 var SONATA_FONT_SIZE = 12;
-var MOVEMENT_EXTRA_SPACING = 3;
-var SONATA_EXTRA_SPACING = 5;
+var MOVEMENT_EXTRA_SPACING = 4;
+var SONATA_EXTRA_SPACING = 2;
 
-var COLORS = {'Sonata':'#0000FF','Adagio':'#808000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#800080'};
+var COLORS = {'Sonata':'#0000FF','Adagio':'#F08000','M/S':'#FF0000','Rondo':'#008000','Variations':'#008080','Fugue':'#800080'};
 var MEASURE_MARKINGS = [1,16,32,48,64,96,128,160,192,224,256,320,384,448,512];
 
 for(var n=0;n<MEASURE_MARKINGS.length;n++){
-  canvas.text(LEFT_MARGIN+PIX_PER_MEASURE*(MEASURE_MARKINGS[n]-1)+1,3*TOP_MARGIN/5,MEASURE_MARKINGS[n]);
+  canvas.text(LEFT_MARGIN+PIX_PER_MEASURE*(MEASURE_MARKINGS[n]-1)+1,3*TOP_MARGIN/5,MEASURE_MARKINGS[n]).attr({'font-family':'Ubuntu'});
 }
-canvas.text(LEFT_MARGIN,TOP_MARGIN/4,'Measures').attr({'text-anchor':'start'});
+canvas.text(LEFT_MARGIN,TOP_MARGIN/4,'Measures').attr({'text-anchor':'start'}).attr({'font-family':'Ubuntu'});
+
+canvas.text(LEFT_MARGIN/8,2*TOP_MARGIN/3,'No.').attr({'font-size':6}).attr({'font-family':'Ubuntu'});
+canvas.text(3*LEFT_MARGIN/10,2*TOP_MARGIN/3,'Mv.').attr({'font-size':6}).attr({'font-family':'Ubuntu'});
+canvas.text(LEFT_MARGIN/2,2*TOP_MARGIN/3,'M').attr({'font-size':6}).attr({'font-family':'Ubuntu'});
+canvas.text(7*LEFT_MARGIN/10,2*TOP_MARGIN/3,'M+R').attr({'font-size':6}).attr({'font-family':'Ubuntu'});
+canvas.text(9*LEFT_MARGIN/10,2*TOP_MARGIN/3,'ratio').attr({'font-size':6}).attr({'font-family':'Ubuntu'});
 
 /* computes the maximum in a list of at least 1 number */
 function max(numbers){
@@ -258,10 +264,10 @@ for(var a=0;a<sonataData.length;a++){
     }
     previousMovementOffset = movementOffset;
     movementOffset += INTER_LINE_DISTANCE*(newLines+1) + MOVEMENT_EXTRA_SPACING;
-    var movementNumber = canvas.text(3*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
-    var totalMeasures = canvas.text(LEFT_MARGIN/2,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,max(sonataData[a][b][0])).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
-    var totalMeasuresWithRepeat = canvas.text(7*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,sonataData[a][b][0].length).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
-    var averageTimesPlayed = canvas.text(9*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,Math.round(sonataData[a][b][0].length/max(sonataData[a][b][0])*10)/10).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'});
+    var movementNumber = canvas.text(3*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,b+1).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'}).attr({'font-family':'Ubuntu'});
+    var totalMeasures = canvas.text(LEFT_MARGIN/2,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,max(sonataData[a][b][0])).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'}).attr({'font-family':'Ubuntu'});
+    var totalMeasuresWithRepeat = canvas.text(7*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,sonataData[a][b][0].length).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'}).attr({'font-family':'Ubuntu'});
+    var averageTimesPlayed = canvas.text(9*LEFT_MARGIN/10,sonataOffset+(movementOffset-INTER_LINE_DISTANCE-MOVEMENT_EXTRA_SPACING+previousMovementOffset)/2,Math.round(sonataData[a][b][0].length/max(sonataData[a][b][0])*10)/10).attr({'fill':COLORS[sonataData[a][b][1]]}).attr({'font-size':MOVEMENT_FONT_SIZE+'px'}).attr({'font-family':'Ubuntu'});
   }
   previousSonataOffset = sonataOffset;
   sonataOffset += movementOffset + SONATA_EXTRA_SPACING;
@@ -271,9 +277,20 @@ for(var a=0;a<sonataData.length;a++){
   }
   number += a+1;
   var gapToNextSonata = INTER_LINE_DISTANCE + SONATA_EXTRA_SPACING + MOVEMENT_EXTRA_SPACING;
-  var sonataNumber = canvas.text(LEFT_MARGIN/8,(sonataOffset-gapToNextSonata+previousSonataOffset)/2,number).attr({'font-size':SONATA_FONT_SIZE+'px'});
+  var sonataNumber = canvas.text(LEFT_MARGIN/8,(sonataOffset-gapToNextSonata+previousSonataOffset)/2,number).attr({'font-size':SONATA_FONT_SIZE+'px'}).attr({'font-family':'Ubuntu'});
   if(a%2==0){
     var highlightRect = canvas.rect(0,previousSonataOffset-(gapToNextSonata)/2,CANVAS_HORZ_SIZE,sonataOffset-previousSonataOffset).attr({'fill':'#E0E0E0'}).attr({'stroke-width':0});
     highlightRect.toBack();
   }
 }
+
+var formTextSonata = canvas.text(1120,TOP_MARGIN/4,'Sonata-Allegro').attr({'fill':COLORS['Sonata']}).attr({'font-family':'Ubuntu'});
+var formTextAdagio = canvas.text(1220,TOP_MARGIN/4,'Slow').attr({'fill':COLORS['Adagio']}).attr({'font-family':'Ubuntu'});
+var formTextRondo = canvas.text(1320,TOP_MARGIN/4,'Rondo').attr({'fill':COLORS['Rondo']}).attr({'font-family':'Ubuntu'});
+var formTextTernary = canvas.text(1420,TOP_MARGIN/4,'Ternary').attr({'fill':COLORS['M/S']}).attr({'font-family':'Ubuntu'});
+var formTextVariations = canvas.text(1520,TOP_MARGIN/4,'Variations').attr({'fill':COLORS['Variations']}).attr({'font-family':'Ubuntu'});
+var formTextFugue = canvas.text(1620,TOP_MARGIN/4,'Fugal').attr({'fill':COLORS['Fugue']}).attr({'font-family':'Ubuntu'});
+
+var titleText = canvas.text(1620,1337,'The Piano Sonatas').attr({'fill':'#006060'}).attr({'font-size':18}).attr({'font-family':'Ubuntu'});
+var titleText = canvas.text(1620,1359,'of Beethoven').attr({'fill':'#006060'}).attr({'font-size':20}).attr({'font-family':'Ubuntu'});
+var wywingText = canvas.text(1620,1391,'wywing.wordpress.com').attr({'font-family':'Ubuntu'}).attr({'font-style':'italic'}).attr({'font-size':'15px'}).attr({'fill':'#C0C0C0'});
